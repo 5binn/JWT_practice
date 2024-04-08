@@ -2,6 +2,7 @@ package com.example.JWT;
 
 import com.example.JWT.global.jwt.JwtProvider;
 import io.jsonwebtoken.security.Keys;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,8 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
+
 
 @SpringBootTest
 class JwtApplicationTests {
@@ -27,7 +29,7 @@ class JwtApplicationTests {
     @Test
     @DisplayName("시크릿 키 검증")
     void checkKey() {
-        assertThat(originSecretKey).isNotNull();
+        Assertions.assertNotNull(originSecretKey);
         System.out.println(originSecretKey);
     }
 
@@ -38,7 +40,7 @@ class JwtApplicationTests {
 
         SecretKey secretKey1 = Keys.hmacShaKeyFor(key.getBytes());
 
-        assertThat(secretKey1).isNotNull();
+        assertNotNull(secretKey1);
         System.out.println(secretKey1);
     }
 
@@ -46,7 +48,7 @@ class JwtApplicationTests {
     @DisplayName("시크릿 키 객체생성")
     void test2() {
         SecretKey secretKey = jwtProvider.getSecretKey();
-        assertThat(secretKey).isNotNull();
+        assertNotNull(secretKey);
     }
 
     @Test
@@ -54,7 +56,7 @@ class JwtApplicationTests {
     void test3() {
         SecretKey secretKey1 = jwtProvider.getSecretKey();
         SecretKey secretKey2 = jwtProvider.getSecretKey();
-        assertThat(secretKey1 == secretKey2).isTrue();
+        assertEquals(secretKey1 ,secretKey2);
     }
 
     @Test
@@ -68,7 +70,7 @@ class JwtApplicationTests {
 
         System.out.println("<<" + token + ">>");
 
-        assertThat(token).isNotNull();
+        assertNotNull(token);
     }
 
     @Test
@@ -83,7 +85,7 @@ class JwtApplicationTests {
 
         System.out.println("accessToken :" + accessToken);
 
-        assertThat(jwtProvider.verify(accessToken)).isFalse();
+        Assertions.assertFalse(jwtProvider.verify(accessToken));
     }
     @Test
     @DisplayName("access Token을 이용하여 claims 정보 가져오기")
@@ -97,7 +99,7 @@ class JwtApplicationTests {
 
         System.out.println("accessToken :" + accessToken);
 
-        assertThat(jwtProvider.verify(accessToken)).isTrue();
+        assertTrue(jwtProvider.verify(accessToken));
 
         Map<String, Object> claimsFromToken = jwtProvider.getClaims(accessToken);
         System.out.println("claimsFromToken : " + claimsFromToken);
