@@ -21,7 +21,6 @@ export default function Login() {
 
         if (response.ok) {
             alert('로그인 성공');
-            router.push("/");
         } else {
             alert('로그인 실패');
         }

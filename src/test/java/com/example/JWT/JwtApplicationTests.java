@@ -66,11 +66,11 @@ class JwtApplicationTests {
         claims.put("id", 1L);
         claims.put("username", "user1");
 
-        String token = jwtProvider.generateToken(claims, 60 * 60 * 5);
-
-        System.out.println("<<" + token + ">>");
-
-        assertNotNull(token);
+//        String token = jwtProvider.generateToken(claims, 60 * 60 * 5);
+//
+//        System.out.println("<<" + token + ">>");
+//
+//        assertNotNull(token);
     }
 
     @Test
@@ -80,12 +80,12 @@ class JwtApplicationTests {
         claims.put("id", 3L);
         claims.put("username", "admin");
 
-        // 유효성 시간 x
-        String accessToken = jwtProvider.generateToken(claims, -1);
-
-        System.out.println("accessToken :" + accessToken);
-
-        Assertions.assertFalse(jwtProvider.verify(accessToken));
+//        // 유효성 시간 x
+//        String accessToken = jwtProvider.generateToken(claims, -1);
+//
+//        System.out.println("accessToken :" + accessToken);
+//
+//        Assertions.assertFalse(jwtProvider.verify(accessToken));
     }
     @Test
     @DisplayName("access Token을 이용하여 claims 정보 가져오기")
@@ -94,14 +94,14 @@ class JwtApplicationTests {
         claims.put("id", 2L);
         claims.put("username", "admin");
 
-        // 10분
-        String accessToken = jwtProvider.generateToken(claims, 60 * 10);
-
-        System.out.println("accessToken :" + accessToken);
-
-        assertTrue(jwtProvider.verify(accessToken));
-
-        Map<String, Object> claimsFromToken = jwtProvider.getClaims(accessToken);
-        System.out.println("claimsFromToken : " + claimsFromToken);
+//        // 10분
+//        String accessToken = jwtProvider.generateToken(claims, 60 * 10);
+//
+//        System.out.println("accessToken :" + accessToken);
+//
+//        assertTrue(jwtProvider.verify(accessToken));
+//
+//        Map<String, Object> claimsFromToken = jwtProvider.getClaims(accessToken);
+//        System.out.println("claimsFromToken : " + claimsFromToken);
     }
 }

@@ -19,9 +19,9 @@ export default function Home() {
   }
 
   return (
-    <main >
-      <Link href={"/user/login"}>로그인</Link>
-      <button onClick={logout}>로그아웃</button>
-    </main>
+    <div className="h-screen bg-white">
+      
+      <h1 className=""> 홈 입니다. </h1>
+    </div>
   );
 }
