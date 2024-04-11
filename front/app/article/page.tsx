@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArticleData, ApiResponse } from "./types"
 import ArticleForm from "./articleForm";
+import axios from "axios";
 
 interface ArticleListResponse extends ApiResponse<ArticleData[]> { };
 
@@ -16,6 +17,9 @@ export default function Article() {
     }, []);
 
     const fetchArticle = () => {
+        // axios.get("http://localhost:8070/api/v1/articles")
+        // .then(data => data.json())
+        // .then((response) => setArticleList(response.data.articleList));
         fetch("http://localhost:8070/api/v1/articles")
             .then(data => data.json())
             .then((result: ArticleListResponse) => setArticleList(result.data.articleList));

@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ArticleData, ApiResponse } from "../types"
 import Link from "next/link";
+import axios from "axios";
 
 interface ArticleResponse extends ApiResponse<ArticleData> { };
 
@@ -15,12 +16,20 @@ export default function Id() {
     const [isClick, setIsClick] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:8070/api/v1/articles/ ${params.id}`)
-            .then(response => response.json())
-            .then((result: ArticleResponse) => {
-                if (result.msg === "성공") { setArticle(result.data.article); }
-                else console.error(result.msg)
-            });
+        axios.get(`http://localhost:8070/api/v1/articles/ ${params.id}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true
+        })
+            .then((response) => setArticle(response.data.article))
+            .then(response => console.log(response));
+        // fetch(`http://localhost:8070/api/v1/articles/ ${params.id}`)
+        //     .then(response => response.json())
+        //     .then((result: ArticleResponse) => {
+        //         if (result.msg === "성공") { setArticle(result.data.article); }
+        //         else console.error(result.msg)
+        //     });
     }, [params.id]);
 
     const formatDate = (dateString: string): string => {
@@ -89,8 +98,8 @@ export default function Id() {
             <button onClick={onDelete}>삭제</button>
             {isClick ? (
                 <form onSubmit={save}>
-                    제목<input type="text" name="title" value={article.title} onChange={handleChange}/>
-                    내용<textarea name="content" value={article.content} onChange={handleChange}/>
+                    제목<input type="text" name="title" value={article.title} onChange={handleChange} />
+                    내용<textarea name="content" value={article.content} onChange={handleChange} />
                     <button type="submit">저장</button>
                 </form>
             ) : (<></>)}

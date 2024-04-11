@@ -57,6 +57,7 @@ public class MemberService {
         );
     }
 
+
     public boolean validateToken(String token) {
         return jwtProvider.verify(token);
     }
@@ -81,9 +82,8 @@ public class MemberService {
         if (!passwordEncoder.matches(password, member.getPassword())) {
             throw new GlobalException("400-1", "비밀번호를 확인하세요.");
         }
-        String refreshToken = member.getRefreshToken();
-
-        String accessToken = jwtProvider.generateToken(member, 60 * 60 * 5);
+        String refreshToken = jwtProvider.generateRefreshToken(member);
+        String accessToken = jwtProvider.generateAccessToken(member);
         return RsData.of(
                 "200-1",
                 "로그인 성공",

@@ -34,7 +34,6 @@ public class ApiV1MemberController {
     @AllArgsConstructor
     public static class LoginResponse {
         private MemberDto memberDto;
-
     }
 
     @PostMapping("/login")
@@ -67,6 +66,7 @@ public class ApiV1MemberController {
                 new MeResponse(new MemberDto(member))
         );
     }
+
 
 //    @GetMapping("/loginCheck")
 //    public boolean isLoggedIn() {
